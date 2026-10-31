@@ -7,7 +7,17 @@ authors = [
     { name = "Ashwin Patel", email = "ashwin0824@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "langchain>=1.4.7",
+    "langchain-community>=0.4.2",
+    "langchain-openai>=1.7.3",
+    "langgraph>=1.2.18",
+    "pandas>=3.1.0",
+    "pymysql>=1.2.3",
+    "python-dotenv>=1.2.4",
+    "sqlalchemy>=2.1.6",
+    "streamlit>=1.66.1",
+]
 
 [project.scripts]
 text-2-sql-agent = "text_2_sql_agent:main"
