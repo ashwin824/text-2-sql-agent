@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit_extras.stylable_container import stylable_container
 from backend import TextToSQLAgent
 import pandas as pd
 
@@ -33,7 +34,7 @@ st.markdown("""
 st.markdown("""
 <div class="main-header">
     <h1>🗄️Text-to-SQL Agent</h1>
-    <p>Ask question in plain English, get answers from you MySQL database.</p>
+    <p>Ask question in plain English, get answers from your MySQL database.</p>
 </div>
 """,unsafe_allow_html=True)
 #--------- Initialize Agent ------
@@ -65,3 +66,37 @@ with st.sidebar:
 
     with st.expander("📐 View Schema"):
         st.code(agent.get_schema_info(), language="sql")    
+
+    st.markdown("### 💡 Sample Questions")   
+    samples=[
+            "Employees whose name starts with 'A'.",
+            "Employees with a Gmail address.",
+            "Employees with no manager assigned.",
+            "Total number of employees in the company.",
+            "Find the average salary of employees."]
+    
+    with st.container(key="sample-buttons"):
+        for q in samples:
+            if st.button(q,
+                                key=f"sample_{q}", 
+                                use_container_width=True):
+                st.session_state.pending_question = q
+                st.rerun()
+
+    st.markdown("---")
+    if st.button("🗑️ Clear Chat", use_container_width=True):
+        st.session_state.messages=[]
+        st.rerun()       
+
+    #----------- Helper: parse raw result into DataFrame -------
+    def try_parse_to_df(raw_result:str):
+        pass
+    #----------- footer -----
+    st.markdown("---")
+    st.markdown(
+        "<p style='text-align: center; color: #888;'>"
+        "Built with LangGraph + Streamlit + MySQL"
+        "</p>",
+        unsafe_allow_html=True)            
+
+    
