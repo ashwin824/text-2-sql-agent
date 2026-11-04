@@ -23,6 +23,7 @@ class TextToSQLAgent:
     def __init__(self):
         self.db = self._connect_db()  
         self.llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+        self.app = self._build_graph()
 
     def _connect_db(self):
         uri = (
